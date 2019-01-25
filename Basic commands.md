@@ -6,6 +6,7 @@ It's really simple and easy to understand.
 
 
 first of all you have to load the binary in r2, that is easily done with :
+
 `radare2 ./be-quick-or-be-dead-1`
 
 A prerequisite is to know that you can manually search for any command using the **?** alone or with command to see what you can append.
@@ -14,7 +15,9 @@ Now our work can begin.
 ## The analysis part 
 the first thing to do is to analyse the binary. We have several options possible, some are good to inspect precisely the binary and others are more general and do the work pretty well.
 So here, we will use the command:
+
 `aaa`
+
 This command means "analyse all & autoname". 
 
 As I said before, you can see all other analysis function by taping a?, aa? or any combination or letters.
