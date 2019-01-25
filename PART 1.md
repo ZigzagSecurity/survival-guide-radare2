@@ -21,6 +21,17 @@ So here, we will use the command:
 
 This command means "analyse all & autoname". 
 
+```console
+[0x004005a0]> aaa
+[x] Analyze all flags starting with sym. and entry0 (aa)
+[x] Analyze function calls (aac)
+[x] Analyze len bytes of instructions for references (aar)
+[x] Constructing a function name for fcn.* and sym.func.* functions (aan)
+[x] Type matching analysis for all functions (afta)
+[x] Use -AA or aaaa to perform additional experimental analysis.
+[0x004005a0]> 
+```
+
 As I said before, you can see all other analysis function by taping a?, aa? or any combination or letters.
 After this r2 should know everything (at least enougth for us) of the binary. 
 
@@ -30,6 +41,17 @@ Let's enter the command:
 
 `fs`
 
+```console
+[0x004005a0]> fs
+0    6 * strings
+1   43 * symbols
+2   31 * sections
+3   10 * segments
+4    8 * relocs
+5    8 * imports
+6    1 * functions
+[0x004005a0]> 
+```
 This will show what r2 analysed before like the strings, functions, imports, symbols, etc.
 Then we can select one of these categories and print what's inside with the commands :
 
