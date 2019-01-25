@@ -31,14 +31,17 @@ Let's enter the command:
 `fs`
 
 This will show what r2 analysed before like the strings, functions, imports, symbols, etc.
-Then we can select one of these categories with the command :
+Then we can select one of these categories and print what's inside with the commands :
 
-**fs [category name]**
-
-Then print what's inside with **f** 
+```
+fs [category name]
+f 
+```
 
 We can see in the strings category, all the strings that are printed when starting our binary.
-In the sym category we can find the differents functions that are called. The most interesting at the moment, **the main** function.
+In the sym category we can find the differents functions that are called. 
+
+The most interesting at the moment, **the main** function.
 
 ## The reading code part
 so now we want to print the code to actually see what is done in there. The easiest way (but not the only one)to do it is to go at that place in the memory. we can do it with the command **s [offset / function / symbol]**
