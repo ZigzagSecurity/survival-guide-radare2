@@ -36,7 +36,7 @@ As I said before, you can see all other analysis function by taping a?, aa? or a
 After this r2 should know everything (at least enougth for us) of the binary. 
 
 ## The discovering part
-This part consist of discovering what our binary is made of. 
+This part consist of discovering what our binary is made of.\
 Let's enter the command:
 
 `fs`
