@@ -3,7 +3,7 @@
 For the first guide I will use a challenge from the picoCTF 2018. 
 It's really simple and easy to understand.
 
-[Here you can get the binary](//github.com/ZigzagSecurity/survival-guide-radare2/raw/master/be-quick-or-be-dead-1)
+[Here you can get the binary](//github.com/ZigzagSecurity/survival-guide-radare2/raw/master/PART1/be-quick-or-be-dead-1)
 
 
 First of all you have to load the binary in r2, that is easily done with :
