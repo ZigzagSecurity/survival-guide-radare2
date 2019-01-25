@@ -1,11 +1,12 @@
-# survival guide to radare2
+# Survival guide to radare2 // PART 1
 
-for the first guide I will use a challenge from the picoCTF 2018. 
+For the first guide I will use a challenge from the picoCTF 2018. 
 It's really simple and easy to understand.
+
 [Here you can get the binary](//github.com/ZigzagSecurity/survival-guide-radare2/raw/master/be-quick-or-be-dead-1)
 
 
-first of all you have to load the binary in r2, that is easily done with :
+First of all you have to load the binary in r2, that is easily done with :
 
 `radare2 ./be-quick-or-be-dead-1`
 
@@ -13,7 +14,7 @@ A prerequisite is to know that you can manually search for any command using the
 Now our work can begin.
 
 ## The analysis part 
-the first thing to do is to analyse the binary. We have several options possible, some are good to inspect precisely the binary and others are more general and do the work pretty well.
+The first thing to do is to analyse the binary. We have several options possible, some are good to inspect precisely the binary and others are more general and do the work pretty well.
 So here, we will use the command:
 
 `aaa`
@@ -25,15 +26,19 @@ After this r2 should know everything (at least enougth for us) of the binary.
 
 ## The discovering part
 This part consist of discovering what our binary is made of. 
-let's enter the command:
+Let's enter the command:
+
 `fs`
 
-this will show what r2 analysed before like the strings, functions, imports, symbols, etc.
-then we can select one of this category with the command **fs [category name]**
-and print print what's inside with 'f'
+This will show what r2 analysed before like the strings, functions, imports, symbols, etc.
+Then we can select one of these categories with the command :
 
-We can see in the strings category, all the strings that are printed when lunching our binary.
-In the sym category we can find the differents functions that are called. More precisely the main function.
+**fs [category name]**
+
+Then print what's inside with **f** 
+
+We can see in the strings category, all the strings that are printed when starting our binary.
+In the sym category we can find the differents functions that are called. The most interesting at the moment, **the main** function.
 
 ## The reading code part
 so now we want to print the code to actually see what is done in there. The easiest way (but not the only one)to do it is to go at that place in the memory. we can do it with the command **s [offset / function / symbol]**
