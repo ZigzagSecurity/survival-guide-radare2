@@ -1,7 +1,8 @@
 # survival guide to radare2
 
 for the first guide I will use a challenge from the picoCTF 2018. 
-It's really simple and easy to understand. 
+It's really simple and easy to understand.
+[Here you can get the binary](//https://github.com/ZigzagSecurity/survival-guide-radare2/raw/master/be-quick-or-be-dead-1)
 
 
 first of all you have to load the binary in r2, that is easily done with :
@@ -34,7 +35,7 @@ We can see in the strings category, all the strings that are printed when lunchi
 In the sym category we can find the differents functions that are called. More precisely the main function.
 
 ## The reading code part
-so now we want to print the code to actually see what is done in there. The easiest way (but not the only one)to do it is to go at that place in the memory. we can do it with the command **s [offset/function/symbol]**
+so now we want to print the code to actually see what is done in there. The easiest way (but not the only one)to do it is to go at that place in the memory. we can do it with the command **s [offset / function / symbol]**
 
 `s main`
 
@@ -72,7 +73,7 @@ At this step we can think of two easy way exploit that binary :
 - either we skip the timer
 - either we skip the calculating part
 
-## Lets exploit it !
+## Let's exploit it !
 
 ### let's skip the calculating
 so first thing is to open radare in debug mode with:
