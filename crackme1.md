@@ -27,18 +27,8 @@ After this r2 should know everything (at least enougth for us) about the binary.
 This part consist of discovering what our binary is made of.\
 Let's enter the command:\
 `fs`
+![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/PART1/fs.png)
 
-```console
-[0x004005a0]> fs
-0    6 * strings
-1   43 * symbols
-2   31 * sections
-3   10 * segments
-4    8 * relocs
-5    8 * imports
-6    1 * functions
-[0x004005a0]> 
-```
 This will show what r2 analysed before like the strings, functions, imports, symbols, etc.
 Then we can select one of these categories and print what's inside with the commands :
 ```
@@ -71,6 +61,7 @@ First, we move at the begining and then print the code
 s sym.header
 pdf 
 ```
+![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/PART1/s_pdf.png)
 
 As we can read, this function print the string **be quick or be dead 1** and then loop to print the "=".\
 To see it a little bit better we should enter the Visual Mode:\
