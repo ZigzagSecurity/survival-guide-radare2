@@ -27,6 +27,7 @@ After this r2 should know everything (at least enougth for us) about the binary.
 This part consist of discovering what our binary is made of.\
 Let's enter the command:\
 `fs`
+
 ![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/PART1/fs.png)
 
 This will show what r2 analysed before like the strings, functions, imports, symbols, etc.
@@ -42,15 +43,18 @@ In the **sym** category we can find the differents functions that are called.
 The most interesting at the moment, **the main** function.
 
 ## The reading code part
-So now we want to print the code to actually see what is done in there. The easiest way (but not the only one)to do it is to go at that place in the memory.\
-We can do it with the command **s [offset / function / symbol]**
+So now we want to print the code to actually see what is done in there. The easiest way (but not the only one)to do it is :
+- Go at that place in the memory with the **s** command.\
+- And then call the **pdf** command (Print Disassemble Function)
 
-`s main`
+```
+s main
+pdf
+```
 
-Note that our cursor, get moved to the **sym.main offset**.
+![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/PART1/s_pdf.png)
 
-Then we can print the function where we currently are thanks to the "disassemble function" command,
-**pdf** (Print Disassemble Function)
+Note that our cursor get moved to the **sym.main offset**.
 
 At this point we have a little overview of the binary.\
 Four functions are called before leaving the main.
@@ -61,7 +65,6 @@ First, we move at the begining and then print the code
 s sym.header
 pdf 
 ```
-![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/PART1/s_pdf.png)
 
 As we can read, this function print the string **be quick or be dead 1** and then loop to print the "=".\
 To see it a little bit better we should enter the Visual Mode:\
