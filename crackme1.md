@@ -18,7 +18,7 @@ So here, we will use the command:\
 `aaa`\
 This command means "analyse all & autoname". 
 
-[](//github.com/ZigzagSecurity/survival-guide-radare2/blob/master/PART1/aaa.png)
+![](//github.com/ZigzagSecurity/survival-guide-radare2/blob/master/PART1/aaa.png)
 
 As I said before, you can see all other analysis function by taping a?, aa? or any combination or letters.
 After this r2 should know everything (at least enougth for us) about the binary. 
