@@ -44,7 +44,7 @@ The most interesting at the moment, **the main** function.
 
 ## The reading code part
 So now we want to print the code to actually see what is done in there. The easiest way (but not the only one)to do it is :
-- Go at that place in the memory with the **s** command.\
+- Go at that place in the memory with the **s** command.
 - And then call the **pdf** command (Print Disassemble Function)
 
 ```
@@ -54,7 +54,7 @@ pdf
 
 ![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/PART1/s_pdf.png)
 
-Note that our cursor get moved to the **sym.main offset**.
+Note that our cursor get moved from the offset **0x004005a0** to the offset **0x00400827**.
 
 At this point we have a little overview of the binary.\
 Four functions are called before leaving the main.
@@ -104,9 +104,11 @@ Now we have to start the debug work, so let's switch in the Fancy Mode, it will 
 Here you see our different windows with all informations we need on our running binary.
 You can switch from panels with tabs and move informations with arrow keys. It's also possible to close windows, open new ones, etc but it will be subject for a next tuto. :)
 
-Back to our business, we can see where we are in the list of instructions with the rip cursor. We can execute instructions with s or S (it does not get in function calls). So let's try to move a little to verify that we were right about that calculating loop.
+![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/PART1/fancy_mode.png)
 
-You can see as you hit s how the registers, stack and instructions change.
+We can see where we are in the list of instructions with the rip cursor. We can execute instructions with `s` or `S` (it does not get in function calls). So let's try to move a little to verify that we were right about that calculating loop.
+
+You can see as you are hitting `s` how the registers, stack and instructions change.
 Now we want to get out of that loop, so we can just hope over it.
 We can change the instruction pointer to go directly to the next line after the end of our loop. To write command while in visual mode, just hit ":" and then type your command.
 To modify a register use the command "dr".
