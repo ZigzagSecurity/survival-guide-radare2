@@ -115,7 +115,7 @@ To modify a register use the command "dr".
 ```
 dr rip=0x00400721
 ```
-**hit enter to get back to the debug visual**
+**hit enter to get back to the debug visual**\
 **Note that your offset would probably be different than mine**
 
 So normally our cursor just moved right after the loop. Now we still need to put the value we were supposed to calculate in **eax**. Again we use **dr**.
