@@ -1,4 +1,4 @@
-# Survival guide to radare2 // PART 1
+# Survival guide to radare2 // crackme1
 
 For the first guide I will use a challenge from the picoCTF 2018. 
 It's really simple and easy to understand.
