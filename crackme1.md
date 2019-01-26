@@ -7,7 +7,7 @@ It's really simple and easy to understand.
 
 ![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/PART1/first_run.png)
 
-This is what we get when we run the binary.\ 
+This is what we get when we run the binary.\
 Apparently, we need to gain some time on the execution.
 
 
