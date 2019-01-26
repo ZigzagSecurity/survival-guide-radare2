@@ -113,9 +113,11 @@ Now we want to get out of that loop, so we can just hope over it.
 We can change the instruction pointer to go directly to the next line after the end of our loop. To write command while in visual mode, just hit ":" and then type your command.
 To modify a register use the command "dr".
 ```
-dr rip=[offset of the line to go to]
-hit enter to get back to the debug visual
+dr rip=0x00400721
 ```
+**hit enter to get back to the debug visual**
+**Note that your offset would probably be different than mine**
+
 So normally our cursor just moved right after the loop. Now we still need to put the value we were supposed to calculate in **eax**. Again we use **dr**.
 ```
 dr eax=0xdfa8fc78  (That's the value that was compared with the local variable)
@@ -123,21 +125,26 @@ dr eax=0xdfa8fc78  (That's the value that was compared with the local variable)
 Now everything is prepared, we just have to run the binary and reach the end.\
 The final **dc**.
 
+![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/PART1/flag1.png)
 
 ### let's kill the timer
-Here we are going to really kill the timer. We could have done the same trick to modify the instruction pointer but we would have to do it each time we run the binary. A definitive solution would be way better.
-Let's start radare2 in writing mode :\
+Here we are going to really kill the timer. We could have done the same trick to modify the instruction pointer but we would have to do it each time we run the binary. A definitive solution would be way better.\
+Let's start radare2 in writing mode :
 ```
-radare2 -w ./binary
+radare2 -w ./be-quick-or-be-dead-1
 ```
 Then we need to move to the main and remove the call to the timer's initialisation function. To do so, let's use :
 ```
-s [offset of the calling instruction]
+s main
+pdf
+s 0x00400845
 wx 9090909090
 pdf
 ```
+![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/PART1/writing_nop.png)
 
 What we've done here is to move to the line we want to write to and then overwrite nope (0x90) instructions to it. Finally, we print again the function to verify the changes.
 So normally you should see a nop instruction inplace of the timer call.
 To get your flag, just quit radare2 and run the binary.
 
+![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/PART1/flag2.png)
