@@ -13,24 +13,15 @@ A prerequisite is to know that you can manually search for any command using the
 Now our work can begin.
 
 ## The analysis part 
-The first thing to do is to analyse the binary. We have several options possible, some are good to inspect precisely the binary and others are more general and do the work pretty well.
+The first thing to do is to analyse the binary. We have several options possible, some are good to inspect precisely the binary and others are more general and do the work pretty well.\
 So here, we will use the command:\
 `aaa`\
 This command means "analyse all & autoname". 
 
-```console
-[0x004005a0]> aaa
-[x] Analyze all flags starting with sym. and entry0 (aa)
-[x] Analyze function calls (aac)
-[x] Analyze len bytes of instructions for references (aar)
-[x] Constructing a function name for fcn.* and sym.func.* functions (aan)
-[x] Type matching analysis for all functions (afta)
-[x] Use -AA or aaaa to perform additional experimental analysis.
-[0x004005a0]> 
-```
+(//github.com/ZigzagSecurity/survival-guide-radare2/blob/master/PART1/aaa.png)
 
 As I said before, you can see all other analysis function by taping a?, aa? or any combination or letters.
-After this r2 should know everything (at least enougth for us) of the binary. 
+After this r2 should know everything (at least enougth for us) about the binary. 
 
 ## The discovering part
 This part consist of discovering what our binary is made of.\
@@ -49,7 +40,7 @@ Let's enter the command:\
 [0x004005a0]> 
 ```
 This will show what r2 analysed before like the strings, functions, imports, symbols, etc.
-Then we can select one of these categories and print what's inside with the commands :\
+Then we can select one of these categories and print what's inside with the commands :
 ```
 fs [category name]
 f 
@@ -66,7 +57,7 @@ We can do it with the command **s [offset / function / symbol]**
 
 `s main`
 
-Note that our cursor, get moved to the ***sym.main offset***.
+Note that our cursor, get moved to the **sym.main offset**.
 
 Then we can print the function where we currently are thanks to the "disassemble function" command,
 **pdf** (Print Disassemble Function)
