@@ -14,7 +14,7 @@ Apparently, we need to gain some time on the execution.
 First of all you have to load the binary in r2, that is easily done with :\
 `radare2 ./be-quick-or-be-dead-1`
 
-A prerequisite is to know that you can manually search for any command using the **?** alone or with command to see what you can append.\
+A prerequisite is to know that you can manually search for any command using the **?** alone or with a command to see what you can append.\
 Now our work can begin.
 
 ## The analysis part 
@@ -25,8 +25,8 @@ This command means "analyse all & autoname".
 
 ![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/PART1/aaa.png)
 
-As I said before, you can see all other analysis function by taping a?, aa? or any combination or letters.
-After this r2 should know everything (at least enougth for us) about the binary. 
+As I said before, you can see all other analysis function by taping a?, aa? or any combination of letters.
+After this r2 should know everything (at least enough for us) about the binary. 
 
 ## The discovering part
 This part consist of discovering what our binary is made of.\
@@ -42,7 +42,7 @@ fs [category name]
 f 
 ```
 
-We can see in the strings category, all the strings that are printed when starting our binary.\
+We can see in the **strings** category, all the strings that are printed when starting our binary.\
 In the **sym** category we can find the differents functions that are called. 
 
 The most interesting at the moment, **the main** function.
@@ -77,12 +77,14 @@ To see it a little bit better we should enter the Visual Mode:\
 That shows us some block of code with the different jump and conditions.\
 In this view you can navigate using the keys "hjkl" to respectively move to left, down, up and right.
 
+![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/PART1/VV.png)
+
 To get back to the normal view, just hit **q** until getting there.
 
 ### The program routine
 I will skip the detailed inspection of the others functions because it's not the goal of this tuto. I will let you explore them with the commands we have seen earlier.
 
-To be brief, set_timer set a timer (thanks captain obvious) and quit the program when it reach his end.
+To be brief, set_timer set a timer (thanks captain obvious) and quit the program when it reach its end.
 The function get_key calculate the key and put it in an object called "key".
 Finally, the print_flag function will decrypt the flag with the key and print it to the terminal.
 
@@ -114,9 +116,9 @@ You can switch from panels with tabs and move informations with arrow keys. It's
 We can see where we are in the list of instructions with the rip cursor. We can execute instructions with `s` or `S` (it does not get in function calls). So let's try to move a little to verify that we were right about that calculating loop.
 
 You can see as you are hitting `s` how the registers, stack and instructions change.
-Now we want to get out of that loop, so we can just hope over it.
-We can change the instruction pointer to go directly to the next line after the end of our loop. To write command while in visual mode, just hit ":" and then type your command.
-To modify a register use the command "dr".
+Now we want to get out of that loop, so we can just hop over it.
+We can change the instruction pointer to go directly to the next line after the end of our loop. To write command while in visual mode, just hit `:` and then type your command.\
+To modify a register use the command `dr`.
 ```
 dr rip=0x00400721
 ```
