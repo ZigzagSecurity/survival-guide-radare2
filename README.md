@@ -3,7 +3,7 @@ I will make several tutorial to explain how to use radare2 for the most common t
 The order you should read them :
 - Crackme1
 - Visual Mode (to come)
-- Simple Stack Overflow (to come)
-- Ret2Libc (to come)
+- Simple Stack Overflow without ASLR (to come)
+- Ret2Libc without ASLR (to come)
 - Heap Overflow without ASLR
 - Radare2 cheat sheet
